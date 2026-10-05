@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#111827" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="apple-mobile-web-app-title" content="BJJ Brain" />
+  <title>BJJ Brain</title>
+  <link rel="manifest" href="manifest.json" />
+  <link rel="apple-touch-icon" href="icon-192.png" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <main class="app-shell">
+    <header class="topbar">
+      <div>
+        <div class="eyebrow">BJJ BRAIN</div>
+        <h1>Seu jogo, organizado.</h1>
+      </div>
+      <button id="openNewMemory" class="icon-button" aria-label="Criar memória">+</button>
+    </header>
+
+    <section class="hero-card">
+      <span class="hero-label">HOJE</span>
+      <h2>Transforme aprendizado em jogo.</h2>
+      <p>Salve rapidamente o que você quer lembrar e leve isso para o tatame.</p>
+      <button id="heroNewMemory" class="primary-button">+ Novo aprendizado</button>
+    </section>
+
+    <section class="section-header">
+      <div>
+        <span class="section-kicker">MEMÓRIAS</span>
+        <h2>Últimos aprendizados</h2>
+      </div>
+      <span id="memoryCount" class="counter">0</span>
+    </section>
+
+    <section id="emptyState" class="empty-state">
+      <div class="empty-icon">🧠</div>
+      <h3>Nenhuma memória ainda</h3>
+      <p>Crie seu primeiro aprendizado para começar a construir seu jogo.</p>
+    </section>
+
+    <section id="memoryList" class="memory-list"></section>
+
+    <section class="settings-card">
+      <div>
+        <span class="section-kicker">DADOS</span>
+        <h3>Backup local</h3>
+        <p>Exporte um arquivo com suas memórias para guardar fora do aparelho.</p>
+      </div>
+      <div class="backup-actions">
+        <button id="exportBackup" class="secondary-button">Exportar backup</button>
+        <label class="secondary-button file-label">
+          Importar backup
+          <input id="importBackup" type="file" accept="application/json,.json" hidden />
+        </label>
+      </div>
+    </section>
+  </main>
+
+  <dialog id="memoryDialog" class="memory-dialog">
+    <form id="memoryForm" method="dialog">
+      <div class="dialog-header">
+        <div>
+          <span class="section-kicker">MEMÓRIA</span>
+          <h2 id="dialogTitle">Novo aprendizado</h2>
+        </div>
+        <button id="closeDialog" type="button" class="close-button" aria-label="Fechar">×</button>
+      </div>
+
+      <input id="memoryId" type="hidden" />
+
+      <label>
+        <span>Título</span>
+        <input id="title" type="text" placeholder="Ex.: Arm drag da guarda sentada" maxlength="120" required />
+      </label>
+
+      <label>
+        <span>Prioridade</span>
+        <select id="priority" required>
+          <option value="alta">Alta</option>
+          <option value="media" selected>Média</option>
+          <option value="baixa">Baixa</option>
+        </select>
+      </label>
+
+      <label>
+        <span>O que quero lembrar?</span>
+        <textarea id="notes" rows="5" placeholder="Ex.: aproximar o quadril antes de tentar chegar às costas" required></textarea>
+      </label>
+
+      <label>
+        <span>Link do vídeo <small>(opcional)</small></span>
+        <input id="videoUrl" type="url" inputmode="url" placeholder="https://..." />
+      </label>
+
+      <div class="dialog-actions">
+        <button id="deleteMemory" type="button" class="danger-button hidden">Excluir</button>
+        <button type="submit" class="primary-button grow">Salvar memória</button>
+      </div>
+    </form>
+  </dialog>
+
+  <template id="memoryTemplate">
+    <article class="memory-card">
+      <div class="memory-card-top">
+        <span class="priority-pill"></span>
+        <button class="edit-button" aria-label="Editar memória">Editar</button>
+      </div>
+      <h3 class="memory-title"></h3>
+      <p class="memory-notes"></p>
+      <div class="memory-footer">
+        <span class="memory-date"></span>
+        <a class="video-link hidden" href="#" target="_blank" rel="noopener noreferrer">Abrir vídeo ↗</a>
+      </div>
+    </article>
+  </template>
+
+  <script src="app.js"></script>
+</body>
+</html>
