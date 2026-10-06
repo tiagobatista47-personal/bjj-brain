@@ -16,48 +16,120 @@
   <main class="app-shell">
     <header class="topbar">
       <div>
-        <div class="eyebrow">BJJ BRAIN</div>
-        <h1>Seu jogo, organizado.</h1>
+        <div class="eyebrow">BJJ BRAIN · V0.2</div>
+        <h1 id="pageTitle">Seu jogo, organizado.</h1>
       </div>
       <button id="openNewMemory" class="icon-button" aria-label="Criar memória">+</button>
     </header>
 
-    <section class="hero-card">
-      <span class="hero-label">HOJE</span>
-      <h2>Transforme aprendizado em jogo.</h2>
-      <p>Salve rapidamente o que você quer lembrar e leve isso para o tatame.</p>
-      <button id="heroNewMemory" class="primary-button">+ Novo aprendizado</button>
+    <nav class="tabbar" aria-label="Navegação principal">
+      <button class="tab active" data-view="brain">Brain</button>
+      <button class="tab" data-view="learn">Quero aprender</button>
+      <button class="tab" data-view="studies">Estudos</button>
+      <button class="tab" data-view="game">Meu jogo</button>
+    </nav>
+
+    <section id="view-brain" class="view active-view">
+      <section class="hero-card">
+        <span class="hero-label">HOJE</span>
+        <h2>Transforme aprendizado em jogo.</h2>
+        <p>Registre, organize e acompanhe o que está entrando no seu jiu-jitsu.</p>
+        <button id="heroNewMemory" class="primary-button">+ Novo aprendizado</button>
+      </section>
+
+      <section class="dashboard-grid">
+        <button class="dashboard-card" data-go="learn">
+          <span>QUERO APRENDER</span>
+          <strong id="learnCount">0</strong>
+          <small>itens aguardando foco</small>
+        </button>
+        <button class="dashboard-card" data-go="studies">
+          <span>ESTUDOS</span>
+          <strong id="studyCount">0</strong>
+          <small>projetos ativos</small>
+        </button>
+        <button class="dashboard-card" data-go="game">
+          <span>MEU JOGO</span>
+          <strong id="gameCount">0</strong>
+          <small>memórias em desenvolvimento</small>
+        </button>
+      </section>
+
+      <section class="section-header">
+        <div>
+          <span class="section-kicker">MEMÓRIAS</span>
+          <h2>Últimos aprendizados</h2>
+        </div>
+        <span id="memoryCount" class="counter">0</span>
+      </section>
+
+      <section id="emptyState" class="empty-state">
+        <div class="empty-icon">🧠</div>
+        <h3>Nenhuma memória ainda</h3>
+        <p>Crie seu primeiro aprendizado para começar a construir seu jogo.</p>
+      </section>
+
+      <section id="memoryList" class="memory-list"></section>
+
+      <section class="settings-card">
+        <div>
+          <span class="section-kicker">DADOS</span>
+          <h3>Backup local</h3>
+          <p>Exporte suas memórias, estudos e observações. Guarde o arquivo fora do aparelho.</p>
+        </div>
+        <div class="backup-actions">
+          <button id="exportBackup" class="secondary-button">Exportar backup</button>
+          <label class="secondary-button file-label">
+            Importar backup
+            <input id="importBackup" type="file" accept="application/json,.json" hidden />
+          </label>
+        </div>
+      </section>
     </section>
 
-    <section class="section-header">
-      <div>
-        <span class="section-kicker">MEMÓRIAS</span>
-        <h2>Últimos aprendizados</h2>
-      </div>
-      <span id="memoryCount" class="counter">0</span>
+    <section id="view-learn" class="view">
+      <section class="section-intro">
+        <span class="section-kicker">BACKLOG</span>
+        <h2>Quero aprender</h2>
+        <p>Guarde aqui técnicas e conceitos que despertaram seu interesse, mas ainda não são foco ativo.</p>
+        <button id="newLearnItem" class="dark-button">+ Adicionar item</button>
+      </section>
+      <section id="learnEmpty" class="empty-state compact">
+        <div class="empty-icon">🔖</div>
+        <h3>Nada na fila</h3>
+        <p>Adicione uma técnica ou conceito que quer estudar no futuro.</p>
+      </section>
+      <section id="learnList" class="memory-list"></section>
     </section>
 
-    <section id="emptyState" class="empty-state">
-      <div class="empty-icon">🧠</div>
-      <h3>Nenhuma memória ainda</h3>
-      <p>Crie seu primeiro aprendizado para começar a construir seu jogo.</p>
+    <section id="view-studies" class="view">
+      <section class="section-intro">
+        <span class="section-kicker">FOCO ATIVO</span>
+        <h2>Estudos</h2>
+        <p>Projetos pequenos para introduzir um conceito de forma organizada no seu jogo.</p>
+        <button id="newStudy" class="dark-button">+ Novo estudo</button>
+      </section>
+      <section id="studiesEmpty" class="empty-state compact">
+        <div class="empty-icon">📚</div>
+        <h3>Nenhum estudo ativo</h3>
+        <p>Crie um estudo com objetivo, princípios e um repertório curto.</p>
+      </section>
+      <section id="studiesList" class="study-list"></section>
     </section>
 
-    <section id="memoryList" class="memory-list"></section>
-
-    <section class="settings-card">
-      <div>
-        <span class="section-kicker">DADOS</span>
-        <h3>Backup local</h3>
-        <p>Exporte um arquivo com suas memórias para guardar fora do aparelho.</p>
-      </div>
-      <div class="backup-actions">
-        <button id="exportBackup" class="secondary-button">Exportar backup</button>
-        <label class="secondary-button file-label">
-          Importar backup
-          <input id="importBackup" type="file" accept="application/json,.json" hidden />
-        </label>
-      </div>
+    <section id="view-game" class="view">
+      <section class="section-intro">
+        <span class="section-kicker">ARSENAL</span>
+        <h2>Meu jogo</h2>
+        <p>Acompanhe o estágio real de cada memória: da descoberta até a incorporação.</p>
+      </section>
+      <div id="stageSummary" class="stage-summary"></div>
+      <section id="gameEmpty" class="empty-state compact">
+        <div class="empty-icon">🥋</div>
+        <h3>Seu jogo começa aqui</h3>
+        <p>Crie memórias e avance os estágios conforme elas forem ganhando espaço no treino.</p>
+      </section>
+      <section id="gameList" class="memory-list"></section>
     </section>
   </main>
 
@@ -78,44 +150,217 @@
         <input id="title" type="text" placeholder="Ex.: Arm drag da guarda sentada" maxlength="120" required />
       </label>
 
-      <label>
-        <span>Prioridade</span>
-        <select id="priority" required>
-          <option value="alta">Alta</option>
-          <option value="media" selected>Média</option>
-          <option value="baixa">Baixa</option>
-        </select>
-      </label>
+      <div class="form-grid two">
+        <label>
+          <span>Prioridade</span>
+          <select id="priority" required>
+            <option value="alta">Alta</option>
+            <option value="media" selected>Média</option>
+            <option value="baixa">Baixa</option>
+          </select>
+        </label>
+        <label>
+          <span>Estágio</span>
+          <select id="stage" required>
+            <option value="descoberta">Descoberta</option>
+            <option value="estudando">Estudando</option>
+            <option value="drillando">Drillando</option>
+            <option value="testando">Testando</option>
+            <option value="funcional">Funcional</option>
+            <option value="incorporado">Incorporado</option>
+          </select>
+        </label>
+      </div>
 
       <label>
         <span>O que quero lembrar?</span>
-        <textarea id="notes" rows="5" placeholder="Ex.: aproximar o quadril antes de tentar chegar às costas" required></textarea>
+        <textarea id="notes" rows="4" placeholder="Ex.: aproximar o quadril antes de tentar chegar às costas" required></textarea>
       </label>
 
-      <label>
-        <span>Link do vídeo <small>(opcional)</small></span>
-        <input id="videoUrl" type="url" inputmode="url" placeholder="https://..." />
-      </label>
+      <details class="details-panel">
+        <summary>Organizar esta memória</summary>
+        <div class="details-body">
+          <label>
+            <span>Posição</span>
+            <input id="position" type="text" list="positionOptions" placeholder="Ex.: Guarda sentada" />
+            <datalist id="positionOptions">
+              <option>Em pé</option><option>Guarda fechada</option><option>Meia-guarda</option>
+              <option>Butterfly</option><option>Guarda sentada</option><option>De La Riva</option>
+              <option>Single Leg X</option><option>X-Guard</option><option>K-Guard</option>
+              <option>Tartaruga</option><option>Passagem</option><option>Montada</option>
+              <option>Costas</option><option>Controle lateral</option><option>Norte sul</option>
+              <option>Joelho na barriga</option>
+            </datalist>
+          </label>
+
+          <label>
+            <span>Situação</span>
+            <textarea id="situation" rows="2" placeholder="Ex.: adversário ajoelhado com braço acessível"></textarea>
+          </label>
+
+          <div class="form-grid two">
+            <label>
+              <span>Objetivo principal</span>
+              <select id="objectivePrimary">
+                <option value="">Selecionar</option>
+                <option>Escapar</option><option>Recuperar posição</option><option>Estabilizar</option>
+                <option>Controlar</option><option>Desequilibrar</option><option>Raspar</option>
+                <option>Passar</option><option>Chegar às costas</option><option>Progredir posição</option>
+                <option>Levantar</option><option>Finalizar</option><option>Defender</option><option>Conectar</option>
+              </select>
+            </label>
+            <label>
+              <span>Objetivo secundário</span>
+              <select id="objectiveSecondary">
+                <option value="">Nenhum</option>
+                <option>Escapar</option><option>Recuperar posição</option><option>Estabilizar</option>
+                <option>Controlar</option><option>Desequilibrar</option><option>Raspar</option>
+                <option>Passar</option><option>Chegar às costas</option><option>Progredir posição</option>
+                <option>Levantar</option><option>Finalizar</option><option>Defender</option><option>Conectar</option>
+              </select>
+            </label>
+          </div>
+
+          <label>
+            <span>Link do vídeo <small>(opcional)</small></span>
+            <input id="videoUrl" type="url" inputmode="url" placeholder="https://..." />
+          </label>
+
+          <label>
+            <span>Estudo relacionado <small>(opcional)</small></span>
+            <select id="studyId">
+              <option value="">Nenhum</option>
+            </select>
+          </label>
+        </div>
+      </details>
 
       <div class="dialog-actions">
         <button id="deleteMemory" type="button" class="danger-button hidden">Excluir</button>
-        <button type="submit" class="primary-button grow">Salvar memória</button>
+        <button type="submit" class="primary-button grow dark-save">Salvar memória</button>
+      </div>
+    </form>
+  </dialog>
+
+  <dialog id="memoryDetailDialog" class="memory-dialog">
+    <div class="detail-wrap">
+      <div class="dialog-header">
+        <div>
+          <span class="section-kicker">MEMÓRIA</span>
+          <h2 id="detailTitle">Detalhes</h2>
+        </div>
+        <button id="closeDetail" type="button" class="close-button" aria-label="Fechar">×</button>
+      </div>
+      <div id="detailMeta" class="chips"></div>
+      <p id="detailNotes" class="detail-notes"></p>
+      <div id="detailContext" class="context-box"></div>
+
+      <section class="stage-control">
+        <span class="section-kicker">PROGRESSÃO</span>
+        <div id="detailStageLabel" class="stage-label"></div>
+        <div id="stageStepper" class="stage-stepper"></div>
+        <div class="stage-actions">
+          <button id="prevStage" class="secondary-button">← Voltar</button>
+          <button id="nextStage" class="dark-button">Avançar →</button>
+        </div>
+      </section>
+
+      <section class="observation-section">
+        <div class="section-header small">
+          <div>
+            <span class="section-kicker">HISTÓRICO</span>
+            <h3>Observações</h3>
+          </div>
+        </div>
+        <form id="observationForm" class="observation-form">
+          <textarea id="newObservation" rows="3" placeholder="Ex.: hoje percebi que preciso aproximar mais o quadril..." required></textarea>
+          <button class="dark-button" type="submit">+ Adicionar observação</button>
+        </form>
+        <div id="observationList" class="observation-list"></div>
+      </section>
+
+      <div class="detail-actions">
+        <a id="detailVideoLink" class="secondary-button hidden" target="_blank" rel="noopener noreferrer">Abrir vídeo ↗</a>
+        <button id="editFromDetail" class="secondary-button">Editar memória</button>
+      </div>
+    </div>
+  </dialog>
+
+  <dialog id="learnDialog" class="memory-dialog">
+    <form id="learnForm" method="dialog">
+      <div class="dialog-header">
+        <div><span class="section-kicker">QUERO APRENDER</span><h2 id="learnDialogTitle">Novo item</h2></div>
+        <button id="closeLearnDialog" type="button" class="close-button">×</button>
+      </div>
+      <input id="learnId" type="hidden" />
+      <label><span>Técnica ou conceito</span><input id="learnTitle" required maxlength="120" placeholder="Ex.: K-Guard" /></label>
+      <label><span>Por que quero aprender?</span><textarea id="learnReason" rows="3" placeholder="Opcional"></textarea></label>
+      <label><span>Prioridade</span><select id="learnPriority"><option value="alta">Alta</option><option value="media" selected>Média</option><option value="baixa">Baixa</option></select></label>
+      <label><span>Link de referência <small>(opcional)</small></span><input id="learnUrl" type="url" placeholder="https://..." /></label>
+      <div class="dialog-actions">
+        <button id="deleteLearn" type="button" class="danger-button hidden">Excluir</button>
+        <button class="dark-button grow" type="submit">Salvar</button>
+      </div>
+    </form>
+  </dialog>
+
+  <dialog id="studyDialog" class="memory-dialog">
+    <form id="studyForm" method="dialog">
+      <div class="dialog-header">
+        <div><span class="section-kicker">ESTUDO</span><h2 id="studyDialogTitle">Novo estudo</h2></div>
+        <button id="closeStudyDialog" type="button" class="close-button">×</button>
+      </div>
+      <input id="editStudyId" type="hidden" />
+      <label><span>Nome do estudo</span><input id="studyName" required maxlength="120" placeholder="Ex.: Guarda Tartaruga" /></label>
+      <label><span>Objetivo</span><textarea id="studyGoal" required rows="3" placeholder="O que você quer conseguir com este estudo?"></textarea></label>
+      <label><span>Princípios</span><textarea id="studyPrinciples" rows="4" placeholder="Um por linha. Ex.: proteger espaço entre joelho e cotovelo"></textarea></label>
+      <label><span>Problema atual</span><textarea id="studyProblem" rows="2" placeholder="Ex.: adversário controla minha cintura"></textarea></label>
+      <label><span>Próximo experimento</span><textarea id="studyExperiment" rows="2" placeholder="Ex.: testar sit-out quando criar espaço"></textarea></label>
+      <label><span>Status</span><select id="studyStatus"><option value="ativo">Ativo</option><option value="pausado">Pausado</option><option value="concluido">Concluído</option></select></label>
+      <div class="dialog-actions">
+        <button id="deleteStudy" type="button" class="danger-button hidden">Excluir</button>
+        <button class="dark-button grow" type="submit">Salvar estudo</button>
       </div>
     </form>
   </dialog>
 
   <template id="memoryTemplate">
-    <article class="memory-card">
+    <article class="memory-card clickable">
       <div class="memory-card-top">
         <span class="priority-pill"></span>
-        <button class="edit-button" aria-label="Editar memória">Editar</button>
+        <span class="stage-badge"></span>
       </div>
       <h3 class="memory-title"></h3>
       <p class="memory-notes"></p>
+      <div class="chips memory-chips"></div>
       <div class="memory-footer">
         <span class="memory-date"></span>
-        <a class="video-link hidden" href="#" target="_blank" rel="noopener noreferrer">Abrir vídeo ↗</a>
+        <button class="text-button view-memory">Abrir →</button>
       </div>
+    </article>
+  </template>
+
+  <template id="learnTemplate">
+    <article class="memory-card">
+      <div class="memory-card-top"><span class="priority-pill"></span><button class="edit-learn text-button">Editar</button></div>
+      <h3 class="memory-title"></h3>
+      <p class="learn-reason"></p>
+      <div class="memory-footer">
+        <a class="learn-link text-button hidden" target="_blank" rel="noopener noreferrer">Referência ↗</a>
+        <button class="start-learning dark-mini-button">Começar a estudar</button>
+      </div>
+    </article>
+  </template>
+
+  <template id="studyTemplate">
+    <article class="study-card">
+      <div class="memory-card-top"><span class="study-status"></span><button class="edit-study text-button">Editar</button></div>
+      <h3 class="study-title"></h3>
+      <p class="study-goal"></p>
+      <div class="study-block"><strong>Princípios</strong><ul class="study-principles"></ul></div>
+      <div class="study-block study-problem-wrap"><strong>Problema atual</strong><p class="study-problem"></p></div>
+      <div class="study-block study-experiment-wrap"><strong>Próximo experimento</strong><p class="study-experiment"></p></div>
+      <div class="study-linked"></div>
     </article>
   </template>
 

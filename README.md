@@ -1,26 +1,44 @@
-# BJJ Brain V0.1
+# BJJ Brain V0.2
 
-PWA local-first para registrar memórias de jiu-jitsu.
+PWA local-first para uso pessoal. Todos os dados ficam no IndexedDB do aparelho.
 
-## Funcionalidades
-- Criar, editar e excluir memórias
-- Prioridade alta/média/baixa
-- Texto do que deve ser lembrado
-- Link externo de vídeo
-- IndexedDB local
-- Exportar/importar backup JSON
-- Service Worker para uso offline
-- Manifest PWA para instalação na tela inicial
+## Novidades da V0.2
 
-## Publicar no GitHub Pages
-1. Crie um repositório no GitHub.
-2. Envie todos os arquivos desta pasta para a raiz do repositório.
-3. Abra Settings > Pages.
-4. Em Build and deployment, escolha Deploy from a branch.
-5. Selecione a branch `main` e a pasta `/ (root)`.
-6. Salve e aguarde o link do GitHub Pages.
-7. Abra o link no Safari do iPhone.
-8. Toque em Compartilhar > Adicionar à Tela de Início.
+- Posição, situação e objetivos por memória
+- Estágios: Descoberta → Estudando → Drillando → Testando → Funcional → Incorporado
+- Progressão manual de estágio
+- Histórico de observações por memória
+- Aba Quero Aprender
+- Aba Estudos
+- Vínculo de memórias com Estudos
+- Aba Meu Jogo com resumo por estágio
+- Backup V0.2 com memórias, estudos, observações e Quero Aprender
+- Importação compatível com backups V0.1
 
-## Importante
-Os dados ficam apenas no navegador do aparelho. Faça backups periódicos em `Exportar backup`.
+## Atualizar no GitHub Pages
+
+Substitua no repositório os arquivos:
+
+- index.html
+- app.js
+- styles.css
+- manifest.json
+- service-worker.js
+- README.md
+
+Mantenha os ícones ou substitua pelos incluídos neste pacote.
+
+Depois faça o commit na branch `main`. O GitHub Pages deve publicar a nova versão automaticamente.
+
+### Importante no iPhone
+
+A V0.2 usa o mesmo banco `bjj-brain-db`, agora na versão 2. As memórias da V0.1 devem permanecer após a atualização.
+
+Antes de atualizar, faça um **Exportar backup** na V0.1 como precaução.
+
+Se o ícone instalado continuar mostrando a versão antiga após o deploy:
+1. abra o site no Safari e atualize a página;
+2. feche o BJJ Brain completamente e abra novamente;
+3. se necessário, aguarde alguns segundos para o Service Worker atualizar e repita.
+
+Não limpe os dados do Safari/site, pois isso pode apagar o IndexedDB local.
